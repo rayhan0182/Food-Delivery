@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/restaurant_maroon"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".fragments.StartFragment">
+
+    <TextView
+        android:id="@+id/khaiNowText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.05"
+        android:shadowColor="#CC000000"
+        android:shadowDx="6"
+        android:shadowDy="6"
+        android:shadowRadius="12"
+        android:text="KhaiNow"
+        android:textColor="@color/restaurant_gold"
+        android:textSize="86sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/restaurant_gold" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:letterSpacing="0.25"
+        android:text="ORDER YOUR FAVOURITE FOOD"
+        android:textColor="@color/restaurant_cream"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
