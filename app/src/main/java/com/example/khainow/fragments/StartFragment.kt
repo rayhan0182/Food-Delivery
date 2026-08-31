@@ -25,7 +25,7 @@ class StartFragment : Fragment() {
 
         lifecycleScope.launch {
             delay(3.seconds) // 3 seconds delay
-            findNavController().navigate(R.id.action_startFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_startFragment_to_registrationFragment)
         }
 
         return binding.root

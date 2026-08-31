@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.example.khainow.R
 import com.example.khainow.databinding.FragmentRegistrationBinding
 
 class RegistrationFragment : Fragment() {
@@ -17,6 +19,11 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
+
+        binding.tvLoginLink.setOnClickListener {
+            findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
+        }
+
         return binding.root
     }
 
