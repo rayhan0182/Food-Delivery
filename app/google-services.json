@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "387376447167",
+    "project_id": "khainow-eaba2",
+    "storage_bucket": "khainow-eaba2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387376447167:android:6be8251534fea807b8500a",
+        "android_client_info": {
+          "package_name": "com.example.khainow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8NZGzT8UZazmSoR0XqrzOxihxM0dDhwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
