@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.khainow.databinding.FragmentUserRoleBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UserRoleFragment : Fragment() {
 
     private var _binding: FragmentUserRoleBinding? = null

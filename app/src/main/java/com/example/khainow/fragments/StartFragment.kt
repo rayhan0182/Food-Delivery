@@ -8,10 +8,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.khainow.R
 import com.example.khainow.databinding.FragmentStartBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
-
+@AndroidEntryPoint
 class StartFragment : Fragment() {
 
     private var _binding: FragmentStartBinding? = null
@@ -24,7 +26,7 @@ class StartFragment : Fragment() {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
         lifecycleScope.launch {
-            delay(3.seconds) // 3 seconds delay
+            delay(2000.milliseconds)
             findNavController().navigate(R.id.action_startFragment_to_registrationFragment)
         }
 

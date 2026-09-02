@@ -1,0 +1,7 @@
+package com.example.khainow.auth
+import com.example.khainow.auth.reg_e_p.User_e_p
+import com.google.firebase.auth.AuthResult
+
+interface AuthService {
+    suspend fun register(userEP: User_e_p): AuthResult
+}
