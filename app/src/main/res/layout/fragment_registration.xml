@@ -49,12 +49,16 @@
             android:hint="Full Name"
             app:boxStrokeColor="@color/restaurant_maroon"
             app:hintTextColor="@color/restaurant_maroon"
+            app:startIconTint="@color/restaurant_maroon"
             app:layout_constraintTop_toBottomOf="@id/tv_create_account"
             app:startIconDrawable="@android:drawable/ic_menu_myplaces">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,13 +71,17 @@
             android:hint="Email Address"
             app:boxStrokeColor="@color/restaurant_maroon"
             app:hintTextColor="@color/restaurant_maroon"
+            app:startIconTint="@color/restaurant_maroon"
             app:layout_constraintTop_toBottomOf="@id/til_name"
             app:startIconDrawable="@android:drawable/ic_dialog_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -85,14 +93,18 @@
             android:hint="Password"
             app:boxStrokeColor="@color/restaurant_maroon"
             app:hintTextColor="@color/restaurant_maroon"
+            app:startIconTint="@color/restaurant_maroon"
             app:layout_constraintTop_toBottomOf="@id/til_email_reg"
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@android:drawable/ic_lock_idle_lock">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -101,6 +113,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="32dp"
             android:backgroundTint="@color/restaurant_maroon"
+            android:textColor="@color/white"
             android:text="Sign Up"
             android:textAllCaps="false"
             android:textSize="18sp"
@@ -193,6 +206,17 @@
                 android:textColor="@color/restaurant_maroon"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminateTint="@color/restaurant_maroon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,7 +12,20 @@
           "package_name": "com.example.khainow"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "387376447167-3a96mg6939hnrn08aqerot45otk3gb6a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.khainow",
+            "certificate_hash": "bcb3c5aa49cf0eb512d1156a06da892b9ec5320d"
+          }
+        },
+        {
+          "client_id": "387376447167-kt3e0gg2h0j5l81mv1r4hgap10l1d4tm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA8NZGzT8UZazmSoR0XqrzOxihxM0dDhwM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387376447167-kt3e0gg2h0j5l81mv1r4hgap10l1d4tm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
