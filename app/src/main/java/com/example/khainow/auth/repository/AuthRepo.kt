@@ -1,4 +1,6 @@
-package com.example.khainow.auth
+package com.example.khainow.auth.repository
+
+import com.example.khainow.auth.AuthService
 import com.example.khainow.auth.reg_e_p.User_e_p
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
@@ -14,6 +16,5 @@ class AuthRepo @Inject constructor(private val firebaseAuth: FirebaseAuth) : Aut
             userEP.password
         ).await()
     }
-
 
 }

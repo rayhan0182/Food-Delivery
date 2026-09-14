@@ -5,5 +5,4 @@ import com.google.firebase.auth.AuthResult
 
 interface AuthService {
     suspend fun register(userEP: User_e_p): AuthResult
-
 }

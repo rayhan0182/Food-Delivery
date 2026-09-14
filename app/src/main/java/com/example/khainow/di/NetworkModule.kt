@@ -1,7 +1,6 @@
 package com.example.khainow.di
 
-import androidx.annotation.IntDef
-import com.example.khainow.auth.AuthRepo
+import com.example.khainow.auth.repository.AuthRepo
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
