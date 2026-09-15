@@ -5,4 +5,6 @@ import com.google.firebase.auth.AuthResult
 
 interface AuthService {
     suspend fun register(userEP: User_e_p): AuthResult
+    suspend fun login(email: String, password: String): AuthResult
+    suspend fun signInWithGoogle(credential: AuthCredential): AuthResult
 }

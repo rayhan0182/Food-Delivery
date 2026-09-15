@@ -17,4 +17,18 @@ class AuthRepo @Inject constructor(private val firebaseAuth: FirebaseAuth) : Aut
         ).await()
     }
 
+    override suspend fun login(email: String, password: String): AuthResult {
+        return firebaseAuth.signInWithEmailAndPassword(email, password).await()
+    }
+
+    override suspend fun signInWithGoogle(credential: AuthCredential): AuthResult {
+
+        return firebaseAuth.signInWithCredential(credential).await()
+
+    }
+
+
+
 }
+
+
