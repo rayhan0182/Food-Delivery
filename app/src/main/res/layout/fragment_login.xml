@@ -149,17 +149,19 @@
             android:id="@+id/btn_facebook"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="150dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="#1877F2"
             android:text="Sign in with Facebook"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            app:cornerRadius="12dp"
+            app:cornerRadius="15sp"
             app:icon="@drawable/ic_facebook"
             app:iconGravity="textStart"
             app:iconTint="@null"
-            app:layout_constraintTop_toBottomOf="@id/btn_google" />
+            app:layout_constraintTop_toBottomOf="@id/btn_google"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <LinearLayout
             android:id="@+id/ll_bottom"

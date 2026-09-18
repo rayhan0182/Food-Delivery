@@ -1,5 +1,6 @@
 package com.example.khainow.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,8 +21,14 @@ import com.example.khainow.R
 import com.example.khainow.auth.AuthViewModel
 import com.example.khainow.databinding.FragmentLoginBinding
 import com.example.khainow.utils.DataState
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,6 +41,7 @@ class LoginFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by viewModels()
     private lateinit var credentialManager: CredentialManager
+    private lateinit var callbackManager: CallbackManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +49,7 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         credentialManager = CredentialManager.create(requireContext())
+        callbackManager = CallbackManager.Factory.create()
 
         setupUI()
         observe()
@@ -67,7 +76,10 @@ class LoginFragment : Fragment() {
         binding.btnGoogle.setOnClickListener {
             triggerGoogleSignIn()
         }
+
     }
+
+
 
     private fun triggerGoogleSignIn() {
         val googleIdOption = GetGoogleIdOption.Builder()
@@ -131,6 +143,11 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
 

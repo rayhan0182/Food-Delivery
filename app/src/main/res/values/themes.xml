@@ -4,7 +4,15 @@
         <!-- Customize your light theme here. -->
         <item name="android:statusBarColor">@color/restaurant_maroon</item>
         <item name="android:windowLightStatusBar">false</item>
+
     </style>
 
     <style name="Theme.KhaiNow" parent="Base.Theme.KhaiNow" />
+
+    <style name="Theme.KhaiNow.size">
+
+       <item name="android:radius">100dp</item>
+
+    </style>
+
 </resources>

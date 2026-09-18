@@ -1,7 +1,8 @@
 package com.example.khainow.fragments
-
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,14 @@ import com.example.khainow.auth.AuthViewModel
 import com.example.khainow.auth.reg_e_p.User_e_p
 import com.example.khainow.databinding.FragmentRegistrationBinding
 import com.example.khainow.utils.DataState
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -35,6 +42,7 @@ class RegistrationFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModels()
 
     lateinit var credentialManager: CredentialManager
+    private lateinit var callbackManager: CallbackManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,56 +51,57 @@ class RegistrationFragment : Fragment() {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
 
         credentialManager = CredentialManager.create(requireContext())
+        callbackManager = CallbackManager.Factory.create()
+
+        // Register Facebook Callback here
+        LoginManager.getInstance()
+            .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(result: LoginResult) {
+                Log.d("RegistrationFragment", "Facebook login success: ${result.accessToken.token}")
+                val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
+                authViewModel.signInWithFacebook(credential)
+            }
+
+            override fun onCancel() {
+                Log.d("RegistrationFragment", "Facebook registration cancelled")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.e("RegistrationFragment", "Facebook registration error", error)
+                Toast.makeText(requireContext(), "Facebook registration failed: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         setupUI()
         observe()
-
 
         return binding.root
     }
 
     fun observe() {
-
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.authState.collect { state ->
-
                     when (state) {
                         is DataState.Error -> {
-
-                            binding.progressBar.visibility = View.VISIBLE
-
-                            Toast.makeText(requireContext(), "${state.massage}", Toast.LENGTH_LONG)
-                                .show()
-                        }
-
-                        is DataState.Loading -> {
-
-                            binding.progressBar.visibility = View.VISIBLE
-
-                        }
-
-                        is DataState.Success -> {
-
                             binding.progressBar.visibility = View.GONE
-
-                            Toast.makeText(
-                                requireContext(),
-                                "successfully created",
-                                Toast.LENGTH_LONG
-                            ).show()
-
+                            Toast.makeText(requireContext(), "${state.massage}", Toast.LENGTH_LONG).show()
                         }
-
-                        null -> null
+                        is DataState.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        is DataState.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(requireContext(), "successfully created", Toast.LENGTH_LONG).show()
+                            findNavController().navigate(R.id.action_registrationFragment_to_userRoleFragment)
+                        }
+                        null -> {
+                            binding.progressBar.visibility = View.GONE
+                        }
                     }
-
                 }
             }
         }
-
-
     }
 
     private fun setupUI() {
@@ -102,14 +111,12 @@ class RegistrationFragment : Fragment() {
             }
 
             btnGoogleReg.setOnClickListener {
-
                 googlesignup()
-
-                observe()
-
-
             }
 
+            btnFacebookReg.setOnClickListener {
+                facebooksignup()
+            }
 
             btnRegister.setOnClickListener {
                 val name = etName.text.toString().trim()
@@ -118,18 +125,16 @@ class RegistrationFragment : Fragment() {
 
                 if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
                 } else {
-
                     val userdata = User_e_p(name, email, password, "")
-
                     authViewModel.userRegistration(userdata)
-
                 }
-
-
             }
         }
+    }
+
+    fun facebooksignup() {
+        LoginManager.getInstance().logInWithReadPermissions(this, callbackManager, listOf("public_profile"))
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -218,11 +223,7 @@ class RegistrationFragment : Fragment() {
 
                }
 
-
-
-
            }
-
     }
 
 
@@ -230,4 +231,13 @@ class RegistrationFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+    }
+
+
 }

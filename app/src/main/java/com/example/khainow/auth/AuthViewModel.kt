@@ -21,7 +21,7 @@ class AuthViewModel @Inject constructor(
     private val _authState = MutableStateFlow<DataState<AuthResult>?>(null)
     val authState: StateFlow<DataState<AuthResult>?> = _authState.asStateFlow()
 
-    fun userRegistration(userm: User_e_p) {
+   fun userRegistration(userm: User_e_p) {
         viewModelScope.launch {
             _authState.value = DataState.Loading()
             try {
@@ -50,6 +50,18 @@ class AuthViewModel @Inject constructor(
             _authState.value = DataState.Loading()
             try {
                 val result = authRepo.signInWithGoogle(credential)
+                _authState.value = DataState.Success(result)
+            } catch (error: Exception) {
+                _authState.value = DataState.Error(error.message.toString())
+            }
+        }
+    }
+
+    fun signInWithFacebook(credential: AuthCredential) {
+        viewModelScope.launch {
+            _authState.value = DataState.Loading()
+            try {
+                val result = authRepo.signInWithFacebook(credential)
                 _authState.value = DataState.Success(result)
             } catch (error: Exception) {
                 _authState.value = DataState.Error(error.message.toString())

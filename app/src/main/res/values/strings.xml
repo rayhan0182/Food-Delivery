@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">KhaiNow</string>
     <string name="default_web_client_id">YOUR_WEB_CLIENT_ID_HERE</string>
+    <string name="facebook_app_id">1448386953905280</string>
+    <string name="fb_login_protocol_scheme">fb1448386953905280</string>
+    <string name="facebook_client_token">71c4a1676ee96dc2f7a2a349bb2ac4d9</string>
 </resources>
