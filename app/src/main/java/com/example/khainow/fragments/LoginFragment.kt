@@ -51,104 +51,12 @@ class LoginFragment : Fragment() {
         credentialManager = CredentialManager.create(requireContext())
         callbackManager = CallbackManager.Factory.create()
 
-        setupUI()
-        observe()
+
 
         return binding.root
     }
 
-    private fun setupUI() {
-        binding.tvRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
-        }
 
-        binding.btnLogin.setOnClickListener {
-            val email = binding.etEmailLogin.text.toString().trim()
-            val password = binding.etPasswordLogin.text.toString().trim()
-
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
-            } else {
-                authViewModel.login(email, password)
-            }
-        }
-
-        binding.btnGoogle.setOnClickListener {
-            triggerGoogleSignIn()
-        }
-
-    }
-
-
-
-    private fun triggerGoogleSignIn() {
-        val googleIdOption = GetGoogleIdOption.Builder()
-            .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(getString(R.string.default_web_client_id)) // Ensure this is defined in your strings.xml
-            .setAutoSelectEnabled(true)
-            .build()
-
-        val request = GetCredentialRequest.Builder()
-            .addCredentialOption(googleIdOption)
-            .build()
-
-        lifecycleScope.launch {
-            try {
-                val result = credentialManager.getCredential(
-                    request = request,
-                    context = requireContext()
-                )
-                handleGoogleSignInResult(result)
-            } catch (e: GetCredentialException) {
-                Log.e("LoginFragment", "Google Sign-In failed: ${e.message}")
-                Toast.makeText(requireContext(), "Sign-in failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun handleGoogleSignInResult(result: GetCredentialResponse) {
-        val credential = result.credential
-        if (credential is GoogleIdTokenCredential) {
-            val firebaseCredential = GoogleAuthProvider.getCredential(credential.idToken, null)
-            authViewModel.signInWithGoogle(firebaseCredential)
-        }
-    }
-
-    private fun observe() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                authViewModel.authState.collect { state ->
-                    when (state) {
-                        is DataState.Loading -> {
-                            binding.progressBarLogin.visibility = View.VISIBLE
-                        }
-                        is DataState.Success -> {
-                            binding.progressBarLogin.visibility = View.GONE
-                            Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                            // findNavController().navigate(R.id.action_loginFragment_to_mainFragment) // Navigate to home
-                        }
-                        is DataState.Error -> {
-                            binding.progressBarLogin.visibility = View.GONE
-                            Toast.makeText(requireContext(), state.massage, Toast.LENGTH_LONG).show()
-                        }
-                        null -> {
-                            binding.progressBarLogin.visibility = View.GONE
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 }
 
 

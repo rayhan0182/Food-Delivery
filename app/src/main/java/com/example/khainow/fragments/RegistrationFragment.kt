@@ -93,7 +93,7 @@ class RegistrationFragment : Fragment() {
                         is DataState.Success -> {
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(requireContext(), "successfully created", Toast.LENGTH_LONG).show()
-                            findNavController().navigate(R.id.action_registrationFragment_to_userRoleFragment)
+
                         }
                         null -> {
                             binding.progressBar.visibility = View.GONE
