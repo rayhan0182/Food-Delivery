@@ -145,23 +145,24 @@
             app:layout_constraintTop_toBottomOf="@id/ll_separator"
             app:strokeColor="#CCCCCC" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_facebook"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook_reg"
+            style="@style/Theme.KhaiNow.size"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="6dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="#1877F2"
-            android:text="Sign in with Facebook"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Sign up with Facebook"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            app:cornerRadius="15sp"
             app:icon="@drawable/ic_facebook"
             app:iconGravity="textStart"
             app:iconTint="@null"
             app:layout_constraintTop_toBottomOf="@id/btn_google"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            />
 
         <LinearLayout
             android:id="@+id/ll_bottom"
@@ -173,7 +174,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_facebook">
+            app:layout_constraintTop_toBottomOf="@id/btn_facebook_reg">
 
             <TextView
                 android:layout_width="wrap_content"

@@ -1,12 +1,15 @@
 package com.example.khainow.fragments
+import android.R.attr.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -18,6 +21,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.khainow.R
 import com.example.khainow.auth.AuthViewModel
+import com.example.khainow.auth.fb.AuthProviderSdk
 import com.example.khainow.auth.reg_e_p.User_e_p
 import com.example.khainow.databinding.FragmentRegistrationBinding
 import com.example.khainow.utils.DataState
@@ -33,6 +37,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class RegistrationFragment : Fragment() {
 
@@ -44,6 +49,8 @@ class RegistrationFragment : Fragment() {
     lateinit var credentialManager: CredentialManager
     private lateinit var callbackManager: CallbackManager
 
+    private lateinit var authProviderSdk: AuthProviderSdk
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,27 +58,9 @@ class RegistrationFragment : Fragment() {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
 
         credentialManager = CredentialManager.create(requireContext())
-        callbackManager = CallbackManager.Factory.create()
+
 
         // Register Facebook Callback here
-        LoginManager.getInstance()
-            .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(result: LoginResult) {
-                Log.d("RegistrationFragment", "Facebook login success: ${result.accessToken.token}")
-                val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
-                authViewModel.signInWithFacebook(credential)
-            }
-
-            override fun onCancel() {
-                Log.d("RegistrationFragment", "Facebook registration cancelled")
-            }
-
-            override fun onError(error: FacebookException) {
-                Log.e("RegistrationFragment", "Facebook registration error", error)
-                Toast.makeText(requireContext(), "Facebook registration failed: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-
         setupUI()
         observe()
 
@@ -104,6 +93,7 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     private fun setupUI() {
         with(binding) {
             tvLoginLink.setOnClickListener {
@@ -115,7 +105,12 @@ class RegistrationFragment : Fragment() {
             }
 
             btnFacebookReg.setOnClickListener {
-                facebooksignup()
+
+                authProviderSdk = AuthProviderSdk(authViewModel, fragment = this@RegistrationFragment)
+
+                authProviderSdk.authuser()
+
+                observe()
             }
 
             btnRegister.setOnClickListener {
@@ -133,9 +128,7 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    fun facebooksignup() {
-        LoginManager.getInstance().logInWithReadPermissions(this, callbackManager, listOf("public_profile"))
-    }
+
 
     @SuppressLint("SuspiciousIndentation")
     fun googlesignup() {
@@ -232,6 +225,7 @@ class RegistrationFragment : Fragment() {
         _binding = null
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

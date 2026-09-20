@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
         credentialManager = CredentialManager.create(requireContext())
         callbackManager = CallbackManager.Factory.create()
 
-
+        
 
         return binding.root
     }
