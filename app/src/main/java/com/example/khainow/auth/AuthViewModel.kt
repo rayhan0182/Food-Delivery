@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.khainow.auth.reg_e_p.User_e_p
 import com.example.khainow.auth.repository.AuthRepo
 import com.example.khainow.utils.DataState
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import dagger.hilt.android.lifecycle.HiltViewModel

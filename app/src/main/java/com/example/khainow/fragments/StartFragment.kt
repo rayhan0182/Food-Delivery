@@ -36,7 +36,9 @@ class StartFragment : Fragment() {
 
             delay(2000.milliseconds)
 
-            currentusercheak()
+            findNavController().navigate(R.id.action_startFragment_to_registrationFragment)
+
+          //  currentusercheak()
 
         }
         return binding.root

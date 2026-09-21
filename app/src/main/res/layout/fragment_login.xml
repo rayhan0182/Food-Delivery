@@ -130,7 +130,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_google"
+            android:id="@+id/btn_login_google"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -146,7 +146,7 @@
             app:strokeColor="#CCCCCC" />
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/btn_facebook_reg"
+            android:id="@+id/btn_login_fb"
             style="@style/Theme.KhaiNow.size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
             app:icon="@drawable/ic_facebook"
             app:iconGravity="textStart"
             app:iconTint="@null"
-            app:layout_constraintTop_toBottomOf="@id/btn_google"
+            app:layout_constraintTop_toBottomOf="@id/btn_login_google"
             />
 
         <LinearLayout
@@ -174,7 +174,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_facebook_reg">
+            app:layout_constraintTop_toBottomOf="@id/btn_login_fb">
 
             <TextView
                 android:layout_width="wrap_content"

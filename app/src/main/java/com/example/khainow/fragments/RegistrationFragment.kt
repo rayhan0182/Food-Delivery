@@ -1,17 +1,12 @@
 package com.example.khainow.fragments
-import android.R.attr.fragment
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.credentials.CredentialManager
-import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,18 +17,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.khainow.R
 import com.example.khainow.auth.AuthViewModel
 import com.example.khainow.auth.fb.AuthProviderSdk
+import com.example.khainow.auth.google.GoogleProviderSdk
 import com.example.khainow.auth.reg_e_p.User_e_p
 import com.example.khainow.databinding.FragmentRegistrationBinding
 import com.example.khainow.utils.DataState
 import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -46,21 +35,22 @@ class RegistrationFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by viewModels()
 
-    lateinit var credentialManager: CredentialManager
+
     private lateinit var callbackManager: CallbackManager
 
     private lateinit var authProviderSdk: AuthProviderSdk
 
+    private lateinit var googleProviderSdk: GoogleProviderSdk
+
+    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
 
-        credentialManager = CredentialManager.create(requireContext())
+        googleProviderSdk  = GoogleProviderSdk(authViewModel,this@RegistrationFragment)
 
-
-        // Register Facebook Callback here
         setupUI()
         observe()
 
@@ -68,6 +58,8 @@ class RegistrationFragment : Fragment() {
     }
 
     fun observe() {
+
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 authViewModel.authState.collect { state ->
@@ -101,7 +93,40 @@ class RegistrationFragment : Fragment() {
             }
 
             btnGoogleReg.setOnClickListener {
-                googlesignup()
+
+                val googleIdoptions = GetGoogleIdOption.Builder()
+
+                    .setServerClientId(getString(R.string.default_web_client_id))
+
+                    .setFilterByAuthorizedAccounts(false)
+
+                    .setAutoSelectEnabled(true)
+
+                    .build()
+
+
+                val request = GetCredentialRequest.Builder()
+
+                    .addCredentialOption(googleIdoptions)
+
+                    .build()
+
+                lifecycleScope.launch {
+
+                    try {
+
+                        googleProviderSdk.googleuser(request)
+
+                        observe()
+
+                    }catch (error: Exception){
+
+                        Toast.makeText(requireContext(),"Registration ${error.message}", Toast.LENGTH_LONG).show()
+                    }
+
+
+
+                }
             }
 
             btnFacebookReg.setOnClickListener {
@@ -126,97 +151,6 @@ class RegistrationFragment : Fragment() {
                 }
             }
         }
-    }
-
-
-
-    @SuppressLint("SuspiciousIndentation")
-    fun googlesignup() {
-
-        val googleIdoptions = GetGoogleIdOption.Builder()
-
-            .setServerClientId(getString(R.string.default_web_client_id))
-
-            .setFilterByAuthorizedAccounts(false)
-
-            .setAutoSelectEnabled(true)
-
-            .build()
-
-        val request = GetCredentialRequest.Builder()
-
-            .addCredentialOption(googleIdoptions)
-
-            .build()
-
-           lifecycleScope.launch {
-
-               try {
-
-                   val result = credentialManager.getCredential(
-
-                       context = requireContext(),
-
-                       request = request)
-
-                       val credential = result.credential
-
-                   if (credential is CustomCredential&&credential.type== GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL){
-
-                       try {
-
-                           val googleCredential =
-                               GoogleIdTokenCredential
-                                   .createFrom(credential.data)
-
-
-                           val idToken =
-                               googleCredential.idToken
-
-                           val credentiall =
-                               GoogleAuthProvider.getCredential(
-                                   idToken,
-                                   null
-                               )
-
-                              authViewModel.signInWithGoogle(credentiall)
-
-
-
-
-                       }catch (error: Exception){
-
-                           Toast.makeText(
-                               requireContext(),
-                               "${error.message}",
-                               Toast.LENGTH_LONG
-                           ).show()
-
-                       }
-
-                   }else{
-
-                       Toast.makeText(
-                           requireContext(),
-                           "Unexpected credential type",
-                           Toast.LENGTH_LONG
-                       ).show()
-
-                   }
-
-
-
-               }catch (error: Exception){
-
-                   Toast.makeText(
-                       requireContext(),
-                       error.message ?: "Google sign-in failed",
-                       Toast.LENGTH_LONG
-                   ).show()
-
-               }
-
-           }
     }
 
 

@@ -1,11 +1,9 @@
 package com.example.khainow.auth.repository
 
-import android.util.Log
 import com.example.khainow.auth.AuthService
 import com.example.khainow.auth.reg_e_p.User_e_p
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject

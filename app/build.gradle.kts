@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
     implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
