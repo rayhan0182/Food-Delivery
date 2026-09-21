@@ -4,6 +4,7 @@ import androidx.credentials.Credential
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
+import androidx.fragment.app.Fragment
 import com.example.khainow.auth.AuthViewModel
 import com.example.khainow.fragments.RegistrationFragment
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -11,7 +12,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Co
 import com.google.firebase.auth.GoogleAuthProvider
 
 
-class GoogleProviderSdk(private val authViewModel: AuthViewModel,val fragment: RegistrationFragment) {
+class GoogleProviderSdk(private val authViewModel: AuthViewModel,val fragment: Fragment) {
 
     lateinit var credentialManager: CredentialManager
 

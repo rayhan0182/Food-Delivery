@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.khainow.R
 import com.example.khainow.auth.AuthViewModel
 import com.example.khainow.auth.fb.AuthProviderSdk
+import com.example.khainow.auth.google.GoogleProviderSdk
 import com.example.khainow.databinding.FragmentLoginBinding
 import com.example.khainow.utils.DataState
 import com.facebook.CallbackManager
@@ -47,6 +48,8 @@ class LoginFragment : Fragment() {
 
     private lateinit var authProviderSdk: AuthProviderSdk
 
+    private lateinit var googleProviderSdk: GoogleProviderSdk
+
 
     @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
     override fun onCreateView(
@@ -56,18 +59,59 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         callbackManager = CallbackManager.Factory.create()
 
+        googleProviderSdk  = GoogleProviderSdk(authViewModel,this@LoginFragment)
 
-       with(binding){
+       with(binding) {
 
-          btnLoginFb.setOnClickListener {
+           btnLoginFb.setOnClickListener {
 
-              authProviderSdk = AuthProviderSdk(authViewModel,this@LoginFragment)
+               authProviderSdk = AuthProviderSdk(authViewModel, this@LoginFragment)
 
-              authProviderSdk.authuser()
+               authProviderSdk.authuser()
 
-              observer()
+               observer()
 
-          }
+           }
+
+           btnLoginGoogle.setOnClickListener {
+
+               val googleIdoptions = GetGoogleIdOption.Builder()
+
+                   .setServerClientId(getString(R.string.default_web_client_id))
+
+                   .setFilterByAuthorizedAccounts(false)
+
+                   .setAutoSelectEnabled(true)
+
+                   .build()
+
+
+               val request = GetCredentialRequest.Builder()
+
+                   .addCredentialOption(googleIdoptions)
+
+                   .build()
+
+               lifecycleScope.launch {
+
+                   try {
+
+                       googleProviderSdk.googleuser(request)
+
+                       observer()
+
+                   } catch (error: Exception) {
+
+                       Toast.makeText(
+                           requireContext(),
+                           "Registration ${error.message}",
+                           Toast.LENGTH_LONG
+                       ).show()
+                   }
+
+               }
+
+           }
 
        }
         return binding.root
