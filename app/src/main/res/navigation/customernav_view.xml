@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/customernav_view"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.khainow.fragments.customer.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_restaurantListFragment"
+            app:destination="@id/restaurantListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_foodDetailsFragment"
+            app:destination="@id/foodDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/restaurantListFragment"
+        android:name="com.example.khainow.fragments.customer.RestaurantListFragment"
+        android:label="RestaurantListFragment"
+        tools:layout="@layout/fragment_restaurant_list">
+        <action
+            android:id="@+id/action_restaurantListFragment_to_foodDetailsFragment"
+            app:destination="@id/foodDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/foodDetailsFragment"
+        android:name="com.example.khainow.fragments.customer.FoodDetailsFragment"
+        android:label="FoodDetailsFragment"
+        tools:layout="@layout/fragment_food_details">
+        <action
+            android:id="@+id/action_foodDetailsFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.khainow.fragments.customer.PaymentFragment"
+        android:label="PaymentFragment"
+        tools:layout="@layout/fragment_payment">
+        <action
+            android:id="@+id/action_paymentFragment_to_orderTrackingFragment"
+            app:destination="@id/orderTrackingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderTrackingFragment"
+        android:name="com.example.khainow.fragments.customer.OrderTrackingFragment"
+        android:label="OrderTrackingFragment"
+        tools:layout="@layout/fragment_order_tracking">
+        <action
+            android:id="@+id/action_orderTrackingFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+</navigation>

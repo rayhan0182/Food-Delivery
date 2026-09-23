@@ -1,4 +1,5 @@
-package com.example.khainow.fragments
+package com.example.khainow.fragments.auth
+
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -49,7 +50,7 @@ class RegistrationFragment : Fragment() {
     ): View {
         _binding = FragmentRegistrationBinding.inflate(inflater, container, false)
 
-        googleProviderSdk  = GoogleProviderSdk(authViewModel,this@RegistrationFragment)
+        googleProviderSdk  = GoogleProviderSdk(authViewModel, this@RegistrationFragment)
 
         setupUI()
         observe()
@@ -73,8 +74,10 @@ class RegistrationFragment : Fragment() {
                         }
                         is DataState.Success -> {
                             binding.progressBar.visibility = View.GONE
-                            Toast.makeText(requireContext(), "successfully created", Toast.LENGTH_LONG).show()
-
+                            if (findNavController().currentDestination?.id == R.id.registrationFragment) {
+                                Toast.makeText(requireContext(), "successfully created", Toast.LENGTH_LONG).show()
+                                findNavController().navigate(R.id.action_registrationFragment_to_userRoleFragment)
+                            }
                         }
                         null -> {
                             binding.progressBar.visibility = View.GONE
@@ -131,7 +134,8 @@ class RegistrationFragment : Fragment() {
 
             btnFacebookReg.setOnClickListener {
 
-                authProviderSdk = AuthProviderSdk(authViewModel, fragment = this@RegistrationFragment)
+                authProviderSdk =
+                    AuthProviderSdk(authViewModel, fragment = this@RegistrationFragment)
 
                 authProviderSdk.authuser()
 

@@ -6,7 +6,6 @@ import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.fragment.app.Fragment
 import com.example.khainow.auth.AuthViewModel
-import com.example.khainow.fragments.RegistrationFragment
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.google.firebase.auth.GoogleAuthProvider

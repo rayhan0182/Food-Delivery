@@ -6,4 +6,10 @@
     <color name="restaurant_maroon">#4A0E0E</color>
     <color name="restaurant_gold">#F1C40F</color>
     <color name="restaurant_cream">#FDF5E6</color>
+
+    <!-- Role Card Matching Colors -->
+    <color name="card_admin_bg">#4A0E0E</color>
+    <color name="card_admin_text_sub">#E0D5C1</color>
+    <color name="card_user_bg">#FFF3E0</color>
+    <color name="card_user_text_sub">#6D4C41</color>
 </resources>

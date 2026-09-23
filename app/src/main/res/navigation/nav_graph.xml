@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.khainow.fragments.StartFragment"
+        android:name="com.example.khainow.fragments.auth.StartFragment"
         android:label="StartFragment"
         tools:layout="@layout/fragment_start" >
 
@@ -21,16 +21,19 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.khainow.fragments.RegistrationFragment"
+        android:name="com.example.khainow.fragments.auth.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registrationFragment_to_userRoleFragment"
+            app:destination="@id/userRoleFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.khainow.fragments.LoginFragment"
+        android:name="com.example.khainow.fragments.auth.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -42,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/userRoleFragment"
-        android:name="com.example.khainow.fragments.UserRoleFragment"
+        android:name="com.example.khainow.fragments.auth.UserRoleFragment"
         android:label="UserRoleFragment"
         tools:layout="@layout/fragment_user_role" />
 </navigation>

@@ -6,7 +6,7 @@
     android:background="@color/restaurant_maroon"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragments.StartFragment">
+    tools:context=".fragments.auth.StartFragment">
 
     <TextView
         android:id="@+id/khaiNowText"

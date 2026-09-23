@@ -1,18 +1,13 @@
-package com.example.khainow.fragments
+package com.example.khainow.fragments.auth
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
-import androidx.credentials.GetCredentialResponse
-import androidx.credentials.exceptions.GetCredentialException
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -26,14 +21,7 @@ import com.example.khainow.auth.google.GoogleProviderSdk
 import com.example.khainow.databinding.FragmentLoginBinding
 import com.example.khainow.utils.DataState
 import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -59,7 +47,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         callbackManager = CallbackManager.Factory.create()
 
-        googleProviderSdk  = GoogleProviderSdk(authViewModel,this@LoginFragment)
+        googleProviderSdk  = GoogleProviderSdk(authViewModel, this@LoginFragment)
 
        with(binding) {
 
@@ -135,6 +123,7 @@ class LoginFragment : Fragment() {
                         is DataState.Success -> {
                             binding.progressBarLogin.visibility = View.GONE
                             Toast.makeText(requireContext(), "successfully", Toast.LENGTH_LONG).show()
+                            findNavController().navigate(R.id.action_loginFragment_to_userRoleFragment)
 
                         }
                         null -> {
@@ -147,8 +136,3 @@ class LoginFragment : Fragment() {
             }
         }
     }
-
-
-
-
-

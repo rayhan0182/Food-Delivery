@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/restaurant_cream"
-    tools:context=".fragments.UserRoleFragment">
+    tools:context=".fragments.auth.UserRoleFragment">
 
     <TextView
         android:id="@+id/tv_title"
@@ -42,11 +42,12 @@
         android:layout_marginTop="48dp"
         android:clickable="true"
         android:focusable="true"
+        app:cardBackgroundColor="@color/card_admin_bg"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:rippleColor="@color/restaurant_gold"
-        app:strokeColor="@color/restaurant_maroon"
-        app:strokeWidth="1dp"
+        app:strokeColor="@color/restaurant_gold"
+        app:strokeWidth="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
@@ -58,26 +59,27 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ic_admin_role"
-                app:tint="@color/restaurant_maroon"
+                app:tint="@color/restaurant_gold"
                 android:contentDescription="Admin Icon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="Admin"
-                android:textColor="@color/restaurant_maroon"
+                android:textColor="@color/restaurant_gold"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="Manage orders and menu"
-                android:textColor="#888888"
+                android:textColor="@color/card_admin_text_sub"
                 android:textSize="14sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -90,11 +92,12 @@
         android:layout_marginTop="24dp"
         android:clickable="true"
         android:focusable="true"
+        app:cardBackgroundColor="@color/card_user_bg"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:rippleColor="@color/restaurant_gold"
         app:strokeColor="@color/restaurant_maroon"
-        app:strokeWidth="1dp"
+        app:strokeWidth="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_admin">
@@ -106,8 +109,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/ic_user_role"
                 app:tint="@color/restaurant_maroon"
                 android:contentDescription="User Icon" />
@@ -115,7 +118,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:text="User"
                 android:textColor="@color/restaurant_maroon"
                 android:textSize="24sp"
@@ -124,8 +127,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:text="Browse and order food"
-                android:textColor="#888888"
+                android:textColor="@color/card_user_text_sub"
                 android:textSize="14sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
