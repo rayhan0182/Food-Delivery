@@ -26,6 +26,7 @@ ksp = "2.3.11"
 kotlin = "2.3.20"
 
 kotlinxCoroutinesPlayServices = "1.9.0"
+playServicesLocation = "21.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -54,6 +55,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 
 androidx-hilt-navigation-fragment = { group = "androidx.hilt", name = "hilt-navigation-fragment", version = "1.2.0" }
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
