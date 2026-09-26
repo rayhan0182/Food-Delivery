@@ -30,10 +30,6 @@ class RestaurantListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRestaurantListBinding.inflate(inflater, container, false)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        binding.btnSelectRestaurant.setOnClickListener {
-            findNavController().navigate(R.id.action_restaurantListFragment_to_foodDetailsFragment)
-        }
 
         return binding.root
     }
